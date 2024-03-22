@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, 'C:/Users/srgee/Questions/mr.cooper Broadband service--app')
 
 
-plans = {
+plans: dict = {
     "EntertainmentPlan": {
         "Plan": "EntertainmentPlan",
         "Datalimit": 450,

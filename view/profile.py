@@ -12,11 +12,15 @@ def profileAccess(status: bool, useraccess: UserAccess) -> None:
     choice = input("1.View profile\n2.Edit profile\n3.Exit\nEnter your choice: ")
     match choice:
         case "1":
+            system('cls')
             useraccess.viewProfile()
         case "2":
             # edit profile..
+            system('cls')
             useraccess.viewProfile()
+            print()
             choice = input("What do you want to edit(1.Name/2.Date of birth/3.password): ")
+            print()
             name, dob, password = None, None, None
             match choice:
                 case "1":
@@ -32,11 +36,7 @@ def profileAccess(status: bool, useraccess: UserAccess) -> None:
                             password = input("Enter the new password: ")
                 case _:
                     print("Invalid operation..")
-            changes = {"name": name,
-                    "dob": dob,
-                    "password": password
-                    }
-            if useraccess.editProfile(changes):
+            if useraccess.editProfile(name=name, dob=dob, password=password):
                 system('cls')
                 print("Modifications have been added.")
 

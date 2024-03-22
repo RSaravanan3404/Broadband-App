@@ -27,7 +27,7 @@ class FeedBackAndRatings:
                 user_name = feedback["User"].name
                 feedback = feedback["Feedback"]
                 table.append([user_name, rating, feedback])
-
+        
         return table
     
     

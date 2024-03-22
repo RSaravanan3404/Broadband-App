@@ -4,7 +4,7 @@ from model.feedbacksandratings import FeedBackAndRatings
 from model.users import Users, User
 from model.transactions import Transactions
 from model.plans import Planner, plans
-from utilities import *
+from utilities import calculateAge, printTable, planAttributes, transactionAttributes, feedbackAttributes
 
 
 class UserAccess(object):
@@ -61,6 +61,21 @@ class UserAccess(object):
     
 
     # plans and stuffs
+    
+
+    def viewAllPlans(self) -> None:
+        table = self.planner.viewAllPlans()
+        printTable(head=planAttributes, table=table)
+
+
+    def viewCurrentPlan(self) -> None:
+        table = self.user.viewCurrentPlan()
+        if table:
+            printTable(head=planAttributes, table=table)
+        else:
+            print("Not subscribed to any plans yet.")
+
+
     def subscribe(self, planName: str, duration: int) -> bool:
         if self.user.getSubscription() is None:
             plan = self.planner.getPlan(plan=planName)
@@ -70,7 +85,7 @@ class UserAccess(object):
             print("Total amount:", total)
 
             # transaction
-            amount_paid = input("Pay the specified amount: ")
+            amount_paid = int(input("Pay the specified amount: "))
             type = "subscribed to " + plan.get("Plan")
             self.transactions.addTransction(user=self.user, type=type, amount=amount_paid)
 
@@ -79,45 +94,41 @@ class UserAccess(object):
             return True
         print("Already there is a subscription going on..")
         return False
-
-
-    def viewAllPlans(self) -> None:
-        table = self.planner.viewAllPlans()
-        printTable(head=planAttributes, table=table)
-
-
-    def viewCurrentPlan(self) -> None:
-        table = self.user.viewCurrentPlan()
-        printTable(head=planAttributes, table=table)
     
 
     def upgradePlan(self, duration: int) -> None:
         plan = self.user.getSubscription()
-        price = plans.get(self.user.getSubscription().get("Price"))
-        total = price * duration
-        duration += plan.get("PlanDuration")
-        print("Total amount:", total)
+        if plan:
+            planname = self.user.getSubscription().get("Plan")
+            price = plans.get(planname).get("Price")
+            total = price * duration
+            duration += plan.get("PlanDuration")
+            print("Total amount:", total)
 
-        # transaction
-        amount_paid = input("Pay the specified amount: ")
-        type = f"upgraded {plan.get('Plan')} to {duration} months."
-        self.transactions.addTransction(user=self.user, type=type, amount=amount_paid)
-        
-        plan["Duration"] = duration
-        plan["Price"] = price * duration
-        return True
+            # transaction
+            amount_paid = int(input("Pay the specified amount: "))
+            type = f"upgraded {plan.get('Plan')} to {duration} months."
+            self.transactions.addTransction(user=self.user, type=type, amount=amount_paid)
+            
+            plan["Duration"] = duration
+            plan["Price"] = price * duration
+            plan["Datalimit"] *= duration
+            return True
+        print("You have'nt subscribed to any plans yet.")
 
 
     def downgradePlan(self, duration: int) -> int:
         plan = self.user.getSubscription()
-        current_duration = plan.get("PlanDuration")
-        if plan.get("isDowngradable") and current_duration > duration:
-            detuction = plan.get("Detuction")
-            price = plan.get("Price") // duration
-            refund = price - (price * detuction)
-            return refund
-        print("Cannot downgrade this plan.")
-        return
+        if plan:
+            current_duration = plan.get("PlanDuration")
+            if plan.get("isDowngradable") and current_duration > duration:
+                detuction = plan.get("Detuction")
+                price = plan.get("Price") // duration
+                refund = price - (price * detuction)
+                return refund
+            print("Cannot downgrade this plan.")
+            return
+        print("You have'nt subscribed to any plans yet.")
 
 
     def cancelPlan(self) -> int:
@@ -137,18 +148,27 @@ class UserAccess(object):
     # transaction
     def viewTransactions(self) -> None:
         table = self.transactions.getTransactionDetails(user=self.user)
-        printTable(head=transactionAttributes, table=table)
+        if table:
+            printTable(head=transactionAttributes, table=table)
+        else:
+            print("No transactions so far")
 
 
     # Feedback and ratings
     def viewAllFeedbacks(self) -> None:
         table = self.feebacks.viewAllFeedbacks()
-        printTable(head=transactionAttributes, table=table)
+        if table:
+            printTable(head=feedbackAttributes, table=table)
+        else:
+            print("Feedbak is empty leave your feedback")
 
 
     def viewYourFeedback(self) -> None:
         table = self.feebacks.viewYourFeedbacks(user=self.user)
-        printTable(head=feedbackAttributes, table=table)
+        if table:
+            printTable(head=feedbackAttributes, table=table)
+        else:
+            print("You have'nt left any feedbacks")
 
 
     def leaveFeedback(self, rating: int, feedback: str) -> None:

@@ -35,7 +35,8 @@ def logIn(useraccess: UserAccess) -> None:
                     feedback = True
                 case _:
                     pass
-
+            
+            system('cls')
             if profile:
                 profileAccess(status=profile, useraccess=useraccess)
             elif plans:
@@ -47,3 +48,6 @@ def logIn(useraccess: UserAccess) -> None:
             if choice == "Yes":
                 isLogged = False
             system('cls')
+    else:
+        system('cls')
+        print("User does'nt exist.")

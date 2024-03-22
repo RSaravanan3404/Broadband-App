@@ -7,6 +7,7 @@ from tabulate import tabulate
 initialPlanDuration = 28
 planAttributes = ["Plan", "Datalimit", "Speed", "PlanDuration", "Price", 
                   "isCancellable", "isDowngradable", "Detuction"]
+plans = ["EntertainmentPlan", "FamilyPlan", "MusicPlan", "SportsPlan"]
 
 
 # feedbacks and ratings

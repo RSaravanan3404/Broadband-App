@@ -49,11 +49,11 @@ class User:
 
 
     def viewCurrentPlan(self) -> list[list]:
-        table = []
-        for planDetails in self.subscription:
-            for attribute in planDetails:
-                table.append(planDetails[attribute])
-        return table
+        if self.subscription:
+            table = []
+            for planDetails in self.subscription:
+                table.append(self.subscription[planDetails])
+            return [table]
 
 
     def setEmail(self, email: str) -> None:

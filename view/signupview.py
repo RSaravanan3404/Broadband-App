@@ -2,7 +2,7 @@ from os import system
 import sys
 sys.path.insert(0, 'C:/Users/srgee/Questions/mr.cooper Broadband service-app')
 from controller.usercontroll import UserAccess
-from utilities import *
+from model.utilities import *
 
 
 def signUp(useraccess: UserAccess) -> None:

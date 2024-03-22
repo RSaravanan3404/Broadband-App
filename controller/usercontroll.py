@@ -4,7 +4,7 @@ from model.feedbacksandratings import FeedBackAndRatings
 from model.users import Users, User
 from model.transactions import Transactions
 from model.plans import Planner, plans
-from utilities import calculateAge, printTable, planAttributes, transactionAttributes, feedbackAttributes
+from model.utilities import calculateAge, printTable, planAttributes, transactionAttributes, feedbackAttributes
 
 
 class UserAccess(object):

@@ -5,7 +5,10 @@ from controller.usercontroll import UserAccess
 from getpass import getpass
 
 
-def profileAccess(status: bool, useraccess: UserAccess):
+def profileAccess(status: bool, useraccess: UserAccess) -> None:
+    '''
+    Gives access to user to see their profile and edit it.
+    '''
     choice = input("1.View profile\n2.Edit profile\n3.Exit\nEnter your choice: ")
     match choice:
         case "1":

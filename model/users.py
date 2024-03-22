@@ -16,7 +16,7 @@ class Users:
         return 0
     
 
-    def addUser(self, user: User):
+    def addUser(self, user: User) -> None:
         Users._users.append(user)
 
 
@@ -31,26 +31,20 @@ class User:
         self.__age: int = None
         self.__email: str = None
         self.__password: str = None
-        self.transactions: list = []
         self.subscription: dict = None
-        self.feedbacks = []
 
 
-    def getInfo(self):
+    def getInfo(self) -> str:
         info = f"Name: {self.name}\nDateOfBirth: {self.dob}\nAge: {self.__age}\nEmail: {self.__email}\
             \nCurrent subscription: {self.subscription.plan if self.subscription else 'Not Subscribed to any plans yet..'}"
         return info
     
 
-    def addFeedback(self, feedback: dict):
-        self.feedbacks.append(feedback)
-    
-
-    def setSubscription(self, plan):
+    def setSubscription(self, plan) -> None:
         self.subscription = plan
 
 
-    def getSubscription(self):
+    def getSubscription(self) -> dict:
         return self.subscription
 
 
@@ -62,7 +56,7 @@ class User:
         return table
 
 
-    def setEmail(self, email) -> None:
+    def setEmail(self, email: str) -> None:
         self.__email = email
 
 
@@ -82,5 +76,5 @@ class User:
         self.__age = age
 
 
-    def getAge(self):
+    def getAge(self) -> int:
         return self.__age

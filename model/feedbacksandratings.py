@@ -19,7 +19,7 @@ class FeedBackAndRatings:
                                     })
         
 
-    def viewAllFeedbacks(self):
+    def viewAllFeedbacks(self) -> list[list]:
         table = []
         for feedback in FeedBackAndRatings._feedbacksAndRatings:
             rating = feedback["Rating"]
@@ -31,7 +31,7 @@ class FeedBackAndRatings:
         return table
     
     
-    def viewYourFeedbacks(self, user: User):
+    def viewYourFeedbacks(self, user: User) -> list[list]:
 
         table = []
         for feedback in FeedBackAndRatings._feedbacksAndRatings:

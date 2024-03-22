@@ -8,7 +8,7 @@ from view.signupview import signUp
 useraccess = UserAccess()
 
 # Main View
-def view(choice=None):
+def view(choice=None) -> None:
     choice = input("1.Log In\n2.Sign Up\n3.Exit\nEnter your choice: ")
     match choice:
         case "1":
@@ -24,5 +24,4 @@ def view(choice=None):
     if choice == "Yes":
         logIn(useraccess=useraccess)
     
-
 view()

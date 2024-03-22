@@ -8,7 +8,10 @@ from view.feedbacksview import feedbackAccess
 from getpass import getpass
 
 
-def logIn(useraccess: UserAccess):
+def logIn(useraccess: UserAccess) -> None:
+    '''
+    Gets the email id and password from the user and logs him/her in.
+    '''
     email = input("Enter your email: ")
     user = useraccess.isExist(email=email)
     if user:
@@ -44,4 +47,3 @@ def logIn(useraccess: UserAccess):
             if choice == "Yes":
                 isLogged = False
             system('cls')
-            

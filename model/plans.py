@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, 'C:/Users/srgee/Questions/mr.cooper Broadband service--app')
 
-from model.users import User
 
 plans = {
     "EntertainmentPlan": {
@@ -50,11 +49,13 @@ plans = {
 class Planner(object):
 
 
-    def viewAllPlans(self):
+    def viewAllPlans(self) -> list[list]:
         table = []
         for _, planDetails in plans.items():
+            plan = []
             for attribute in planDetails:
-                table.append(planDetails[attribute])
+                plan.append(planDetails[attribute])
+            table.append(plan)
         return table
 
 

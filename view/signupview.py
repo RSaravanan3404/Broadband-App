@@ -5,7 +5,10 @@ from controller.usercontroll import UserAccess
 from utilities import *
 
 
-def signUp(useraccess: UserAccess):
+def signUp(useraccess: UserAccess) -> None:
+    '''
+    Checks if the person is new to the application and asking all the details and signs him/her in.
+    '''
     email = input("Enter your email: ")
     while not check_mail(mail=email):
         system('cls')

@@ -4,7 +4,11 @@ sys.path.insert(0, 'C:/Users/srgee/Questions/mr.cooper Broadband service-app')
 from controller.usercontroll import UserAccess
 
 
-def feedbackAccess(status: bool, useraccess: UserAccess):
+def feedbackAccess(status: bool, useraccess: UserAccess) -> None:
+    '''
+    Lets the user to see all the feedbacks, view feedfacks left by him/her and 
+    lets the user to leave feedbacks and ratings..
+    '''
     choice = input("1.View All feedbacks\n2.View Your feedbacks\n3.Leave feedback\n4.Exit\nEnter your choice: ")
     match choice:
         case "1":
@@ -22,4 +26,3 @@ def feedbackAccess(status: bool, useraccess: UserAccess):
             status = False
     if status:
         feedbackAccess(status=status, useraccess=useraccess)
-        

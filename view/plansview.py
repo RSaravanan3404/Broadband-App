@@ -4,7 +4,11 @@ sys.path.insert(0, 'C:/Users/srgee/Questions/mr.cooper Broadband service-app')
 from controller.usercontroll import UserAccess
 
 
-def planAccess(status: bool, useraccess: UserAccess):
+def planAccess(status: bool, useraccess: UserAccess) -> None:
+    '''
+    Gives user access to view all the available plans, view the current plan going on, upgrade plan,
+    downgrade plan, cancel plan and view transaction details of him/her. 
+    '''
     choice = input("1.View All plans\n2.View current plans\n3.Upgrade plan\n\
                    4.Downgrade plan\n5.Cancel plan\n6.View Transactions\n7.Exit\nEnter your choice: ")
     match choice:

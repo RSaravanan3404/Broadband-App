@@ -13,27 +13,27 @@ class UserAccess(object):
     def __init__(self) -> None:
         self.user: User = None
         self.users: Users = Users()
-        self.planner = Planner()
-        self.feebacks = FeedBackAndRatings()
-        self.transactions = Transactions()
+        self.planner: Planner = Planner()
+        self.feebacks: FeedBackAndRatings = FeedBackAndRatings()
+        self.transactions: Transactions = Transactions()
 
     # user stuffs
-    def setUser(self, user: User):
+    def setUser(self, user: User) -> None:
         self.user = user
 
 
-    def isExist(self, email: str):
+    def isExist(self, email: str) -> User:
         return self.users.isExist(email=email)
 
 
-    def logIn(self, user: User, password: str):
+    def logIn(self, user: User, password: str) -> bool:
         if password == user.getPassword():
             self.setUser(user=user)
             return True
         return False
     
     
-    def signUp(self, email: str, name: str, dob: str, password: str):
+    def signUp(self, email: str, name: str, dob: str, password: str) -> bool:
         user = User(name, dob)
         age = calculateAge(dob=dob)
         user.setAge(age=age)
@@ -44,11 +44,11 @@ class UserAccess(object):
         return True
     
 
-    def viewProfile(self):
+    def viewProfile(self) -> None:
         print(self.user.getInfo())
 
 
-    def editProfile(self, name: str, dob: str, password: str):
+    def editProfile(self, name: str, dob: str, password: str) -> bool:
         if name:
             self.user.name = name
         if dob:
@@ -61,7 +61,7 @@ class UserAccess(object):
     
 
     # plans and stuffs
-    def subscribe(self, planName: str, duration: int):
+    def subscribe(self, planName: str, duration: int) -> bool:
         if self.user.getSubscription() is None:
             plan = self.planner.getPlan(plan=planName)
             price = plan.get("Price")
@@ -81,17 +81,17 @@ class UserAccess(object):
         return False
 
 
-    def viewAllPlans(self):
+    def viewAllPlans(self) -> None:
         table = self.planner.viewAllPlans()
         printTable(head=planAttributes, table=table)
 
 
-    def viewCurrentPlan(self):
+    def viewCurrentPlan(self) -> None:
         table = self.user.viewCurrentPlan()
         printTable(head=planAttributes, table=table)
     
 
-    def upgradePlan(self, duration: int):
+    def upgradePlan(self, duration: int) -> None:
         plan = self.user.getSubscription()
         price = plans.get(self.user.getSubscription().get("Price"))
         total = price * duration
@@ -135,22 +135,21 @@ class UserAccess(object):
 
     
     # transaction
-    def viewTransactions(self):
+    def viewTransactions(self) -> None:
         table = self.transactions.getTransactionDetails(user=self.user)
         printTable(head=transactionAttributes, table=table)
 
 
     # Feedback and ratings
-    def viewAllFeedbacks(self):
+    def viewAllFeedbacks(self) -> None:
         table = self.feebacks.viewAllFeedbacks()
         printTable(head=transactionAttributes, table=table)
 
 
-    def viewYourFeedback(self):
+    def viewYourFeedback(self) -> None:
         table = self.feebacks.viewYourFeedbacks(user=self.user)
         printTable(head=feedbackAttributes, table=table)
 
 
-    def leaveFeedback(self, rating: int, feedback: str):
+    def leaveFeedback(self, rating: int, feedback: str) -> None:
         self.feebacks.newFeedback(user=self.user, rating=rating, feedback=feedback)
-
